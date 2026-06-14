@@ -321,9 +321,110 @@
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important}
   }
+
+  /* ---------- FAQ ---------- */
+  .faq{padding:72px 0;background:var(--soft)}
+  .faq-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
+  .faq-list{margin-top:6px}
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-item:first-child{border-top:1px solid var(--line)}
+  .faq-q{
+    width:100%;background:none;border:none;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 0;gap:16px;text-align:left;
+    font-family:var(--display);font-size:16.5px;font-weight:700;color:var(--ink);
+    transition:color .2s;
+  }
+  .faq-q:hover{color:var(--red)}
+  .faq-chevron{
+    flex-shrink:0;width:24px;height:24px;border-radius:50%;
+    border:1.5px solid var(--line);display:grid;place-items:center;
+    transition:transform .3s,background .2s,border-color .2s;
+  }
+  .faq-chevron svg{width:11px;height:11px;stroke:var(--muted);transition:stroke .2s}
+  .faq-item.open .faq-q{color:var(--red)}
+  .faq-item.open .faq-chevron{transform:rotate(180deg);background:var(--red);border-color:var(--red)}
+  .faq-item.open .faq-chevron svg{stroke:#fff}
+  .faq-body{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.4,0,.2,1)}
+  .faq-body p{padding-bottom:20px;color:var(--muted);font-size:15px;line-height:1.75}
+  .faq-note{display:inline-block;margin-top:4px;font-size:12.5px;font-weight:700;color:var(--red);background:rgba(232,20,27,.07);padding:3px 10px;border-radius:6px}
+  @media(max-width:920px){.faq-wrap{grid-template-columns:1fr;gap:32px}}
+
+  /* ---------- CONTACT FORM ---------- */
+  .contact-sec{padding:80px 0;background:var(--bg)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:start}
+  .contact-info{position:sticky;top:100px}
+  .contact-info h2{margin-bottom:14px}
+  .contact-info .sec-sub{margin-top:0;margin-bottom:32px}
+  .contact-detail{display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .contact-detail:last-child{border-bottom:none}
+  .contact-detail .ic-sm{width:38px;height:38px;border-radius:10px;background:var(--soft);display:grid;place-items:center;flex-shrink:0}
+  .contact-detail .ic-sm svg{width:18px;height:18px;stroke:var(--red)}
+  .contact-detail strong{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px}
+  .contact-detail span{font-size:14px;color:var(--muted)}
+  .form-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:36px;box-shadow:var(--shadow-sm)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+  .field:last-of-type{margin-bottom:0}
+  .field label{font-size:12.5px;font-weight:700;color:var(--ink);letter-spacing:.3px;text-transform:uppercase}
+  .field input,.field select,.field textarea{
+    width:100%;border:1.5px solid var(--line);border-radius:12px;
+    padding:13px 16px;font-family:var(--body);font-size:15px;color:var(--ink);
+    background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;
+    -webkit-appearance:none;appearance:none;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    border-color:var(--red);box-shadow:0 0 0 3px rgba(232,20,27,.1);
+  }
+  .field textarea{resize:vertical;min-height:96px}
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237b8089' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+  .gdpr-check{display:flex;align-items:flex-start;gap:10px;margin:16px 0 20px;font-size:13.5px;color:var(--muted);line-height:1.5}
+  .gdpr-check input[type=checkbox]{flex-shrink:0;width:17px;height:17px;margin-top:2px;accent-color:var(--red);cursor:pointer}
+  .gdpr-check a{color:var(--red);text-decoration:none}
+  .form-submit{width:100%;justify-content:center;border-radius:14px;padding:15px}
+  .form-msg{padding:14px 18px;border-radius:12px;font-size:14px;font-weight:600;margin-top:16px;display:none}
+  .form-msg.ok{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;display:block}
+  .form-msg.err{background:#fef2f2;color:#991b1b;border:1px solid #fecaca;display:block}
+  @media(max-width:920px){
+    .contact-grid{grid-template-columns:1fr;gap:36px}
+    .contact-info{position:relative;top:0}
+    .form-row{grid-template-columns:1fr}
+  }
+
+  /* ---------- COOKIE BANNER ---------- */
+  .cookie{
+    position:fixed;bottom:0;left:0;right:0;z-index:999;
+    background:#fff;border-top:1px solid var(--line);
+    padding:18px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    box-shadow:0 -8px 32px -10px rgba(20,22,28,.1);
+    transform:translateY(110%);transition:transform .4s cubic-bezier(.4,0,.2,1);
+    flex-wrap:wrap;
+  }
+  .cookie.show{transform:translateY(0)}
+  .cookie p{font-size:13.5px;color:var(--ink-soft);max-width:620px;line-height:1.6}
+  .cookie p a{color:var(--red);text-decoration:none;font-weight:600}
+  .cookie-btns{display:flex;gap:10px;flex-shrink:0}
+  .cookie-btns button{
+    font-family:var(--body);font-size:13px;font-weight:700;cursor:pointer;
+    padding:9px 20px;border-radius:999px;border:1.5px solid transparent;transition:all .2s;
+  }
+  .cookie-accept{background:var(--red);color:#fff;border-color:var(--red)}
+  .cookie-accept:hover{background:var(--red-d)}
+  .cookie-reject{background:#fff;color:var(--ink);border-color:var(--line)}
+  .cookie-reject:hover{border-color:var(--ink)}
+  @media(max-width:600px){.cookie{padding:16px 20px}.cookie p{font-size:13px}}
 </style>
 </head>
 <body>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie" id="cookieBanner" role="region" aria-label="Súhlas s cookies">
+    <p>Táto stránka používa nevyhnutné cookies pre fungovanie webu. Viac info v <a href="/gdpr.html">Zásadách ochrany osobných údajov</a>.</p>
+    <div class="cookie-btns">
+      <button class="cookie-reject" id="cookieReject">Odmietnuť</button>
+      <button class="cookie-accept" id="cookieAccept">Prijať</button>
+    </div>
+  </div>
 
   <!-- NAV -->
   <nav>
@@ -333,6 +434,7 @@
         <li><a href="#trat">Trať</a></li>
         <li><a href="#preco">Čo dostanete</a></li>
         <li><a href="#ako">Ako to funguje</a></li>
+        <li><a href="#faq">FAQ</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
       </ul>
       <a href="#kontakt" class="btn btn-red">Rezervovať <span class="arr">→</span></a>
@@ -452,8 +554,156 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="wrap faq-wrap">
+      <div class="reveal">
+        <div class="sec-tag">Časté otázky</div>
+        <h2>Čo vás zaujíma<br>najčastejšie</h2>
+        <p class="sec-sub">Nenašli ste odpoveď? Napíšte nám — radi poradíme.</p>
+      </div>
+      <div class="faq-list reveal">
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Pre koho je atrakcia vhodná?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq-body"><p>Trať je ideálna pre deti od 4 rokov. Buginy majú nastaviteľnú rýchlosť, takže sú bezpečné aj pre tých najmenších. Pre dospelých sú skvelou atrakciou na firemné teambuildingy a festivaly.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Koľko detí môže jazdiť súčasne?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq-body"><p>Na trati môžu jazdiť 4 jazdci naraz — každý vo svojej buginovej. Pri väčších skupinách fungujeme na systéme rotácie, takže sa počas akcie vystriedajú všetci.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Ako dlho trvá montáž a demontáž?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq-body"><p>Celá trať je nafúknutá a pripravená za 30 minút. Prídeme s dostatočným predstihom, aby bola atrakcia hotová presne na čas. Demontáž po skončení akcie tiež zaberie cca 30 minút — všetko za vás zložíme a odvezieme.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Je trať vhodná do interiéru aj exteriéru?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq-body"><p>Áno, trať funguje v oboch prostrediach. Vonku odporúčame trávu alebo rovný pevný povrch. V interiéri (telocvičňa, hala, pavilón) potrebujeme svetlú výšku aspoň 3 metre.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Čo ak prší?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq-body"><p>Pri slabom daždi je vonkajšia prevádzka možná. V prípade silného dažďa alebo búrky bezpečnosť stojí na prvom mieste — dohodneme náhradný termín bez poplatku. Odporúčame mať záložný krytý priestor pre vonkajšie akcie.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Čo všetko je zahrnuté v cene?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq-body"><p>V cene je doprava, montáž trate, elektrické buginy, vyškolená obsluha počas celej akcie, bezpečnostné vybavenie (prilby) a demontáž. Poistenie atrakcie je samozrejmosťou.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Ako dlho dopredu treba rezervovať?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq-body"><p>Odporúčame rezervovať aspoň 2–4 týždne vopred, najmä na víkendy a letné mesiace. Termíny v sezóne sa obsadzujú rýchlo. Čím skôr sa ozvete, tým väčšia šanca, že dostanete váš vysnívaný dátum.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Kam všade dovezete trať?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq-body"><p>Dopravujeme trať po celom Slovensku. Kontaktujte nás s miestom konania a my vám potvrdíme dostupnosť a prípadné náklady na dopravu. <span class="faq-note">Upresníme čoskoro</span></p></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact-sec" id="kontakt">
+    <div class="wrap contact-grid">
+      <div class="contact-info reveal">
+        <div class="sec-tag">Kontakt</div>
+        <h2>Napíšte nám<br>a doladíme zvyšok</h2>
+        <p class="sec-sub">Vyplňte formulár a ozveme sa vám do 24 hodín s ponukou na mieru.</p>
+        <div class="contact-detail">
+          <div class="ic-sm"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></div>
+          <div><strong>Email</strong><span>info@racezone.sk</span></div>
+        </div>
+        <div class="contact-detail">
+          <div class="ic-sm"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.08 4.18 2 2 0 0 1 5.09 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><strong>Telefón</strong><span>+421 900 000 000</span></div>
+        </div>
+        <div class="contact-detail">
+          <div class="ic-sm"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><strong>Odpoveď do</strong><span>24 hodín</span></div>
+        </div>
+      </div>
+
+      <div class="form-card reveal">
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="f-name">Meno a priezvisko</label>
+              <input type="text" id="f-name" name="name" placeholder="Jana Nováková" required>
+            </div>
+            <div class="field">
+              <label for="f-phone">Telefón</label>
+              <input type="tel" id="f-phone" name="phone" placeholder="+421 9xx xxx xxx" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-email">E-mail</label>
+            <input type="email" id="f-email" name="email" placeholder="jana@email.sk" required>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="f-date">Dátum akcie</label>
+              <input type="date" id="f-date" name="date">
+            </div>
+            <div class="field">
+              <label for="f-type">Typ akcie</label>
+              <select id="f-type" name="type">
+                <option value="">Vyberte typ...</option>
+                <option>Detská oslava</option>
+                <option>Firemný deň</option>
+                <option>Festival / podujatie</option>
+                <option>Školská akcia</option>
+                <option>Teambuilding</option>
+                <option>Iné</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg">Správa / otázky</label>
+            <textarea id="f-msg" name="message" placeholder="Napíšte nám miesto konania, odhadovaný počet detí a čokoľvek, čo by sme mali vedieť..."></textarea>
+          </div>
+          <label class="gdpr-check">
+            <input type="checkbox" id="f-gdpr" required>
+            Súhlasím so spracovaním osobných údajov podľa <a href="/gdpr.html" target="_blank">Zásad ochrany osobných údajov</a>.
+          </label>
+          <button type="submit" class="btn btn-red form-submit">Odoslať dopyt <span class="arr">→</span></button>
+          <div class="form-msg" id="formMsg"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
-  <section class="cta-sec" id="kontakt">
+  <section class="cta-sec">
     <div class="wrap">
       <div class="cta reveal">
         <div class="deco"></div>
@@ -482,6 +732,7 @@
             <a href="#trat">Trať</a>
             <a href="#preco">Čo dostanete</a>
             <a href="#ako">Ako to funguje</a>
+            <a href="#faq">FAQ</a>
           </div>
           <div class="fcol">
             <h5>Kontakt</h5>
@@ -490,11 +741,16 @@
             <a href="#">Instagram</a>
             <a href="#">Facebook</a>
           </div>
+          <div class="fcol">
+            <h5>Právne</h5>
+            <a href="/gdpr.html">Ochrana osobných údajov</a>
+            <a href="/vop.html">Obchodné podmienky</a>
+          </div>
         </div>
       </div>
       <div class="foot-bottom">
-        <p>© 2026 RaceZone — Prenájom nafukovacích pretekárskych tratí</p>
-        <p>Vyrobené s vášňou pre preteky 🏁</p>
+        <p>© 2025 RaceZone — Prenájom nafukovacích pretekárskych tratí</p>
+        <p>Všetky práva vyhradené</p>
       </div>
     </div>
   </footer>
@@ -550,13 +806,84 @@
     function onScroll(){ if(scheduled) return; scheduled=true; requestAnimationFrame(()=>{ scheduled=false; revealTick(); countTick(); }); }
 
     requestAnimationFrame(function(){
-      // mark already-visible reveals as shown first, so turning on hidden states causes no flash
       const h=vh();
       reveals.forEach(el=>{ if(el.getBoundingClientRect().top < h*0.95) el.classList.add('in'); });
       document.documentElement.classList.add('go');
       window.addEventListener('scroll', onScroll, {passive:true});
       window.addEventListener('resize', onScroll, {passive:true});
       revealTick(); countTick();
+    });
+
+    // --- FAQ ACCORDION ---
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const btn = item.querySelector('.faq-q');
+      const body = item.querySelector('.faq-body');
+      btn.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(o => {
+          o.classList.remove('open');
+          o.querySelector('.faq-body').style.maxHeight = null;
+          o.querySelector('.faq-q').setAttribute('aria-expanded','false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          body.style.maxHeight = body.scrollHeight + 'px';
+          btn.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+
+    // --- COOKIE BANNER ---
+    (function(){
+      const banner = document.getElementById('cookieBanner');
+      if (localStorage.getItem('rz_cookie')) return;
+      setTimeout(() => banner.classList.add('show'), 800);
+      document.getElementById('cookieAccept').addEventListener('click', () => {
+        localStorage.setItem('rz_cookie','accepted');
+        banner.classList.remove('show');
+      });
+      document.getElementById('cookieReject').addEventListener('click', () => {
+        localStorage.setItem('rz_cookie','rejected');
+        banner.classList.remove('show');
+      });
+    })();
+
+    // --- CONTACT FORM ---
+    // TODO: vytvoriť /api/contact endpoint (Vercel serverless function) s Resend
+    // Potrebné: RESEND_API_KEY (env var), Igorov email pre notifikáciu
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.form-submit');
+      const msg = document.getElementById('formMsg');
+      const gdpr = document.getElementById('f-gdpr');
+      msg.className = 'form-msg';
+      if (!gdpr.checked) {
+        msg.textContent = 'Prosím, potvrďte súhlas so spracovaním osobných údajov.';
+        msg.classList.add('err');
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Odosiela sa...';
+      const data = Object.fromEntries(new FormData(this));
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(data)
+        });
+        if (res.ok) {
+          msg.textContent = 'Ďakujeme! Ozveme sa vám do 24 hodín.';
+          msg.classList.add('ok');
+          this.reset();
+        } else {
+          throw new Error();
+        }
+      } catch {
+        msg.textContent = 'Niečo sa pokazilo. Napíšte nám priamo na info@racezone.sk';
+        msg.classList.add('err');
+      }
+      btn.disabled = false;
+      btn.innerHTML = 'Odoslať dopyt <span class="arr">→</span>';
     });
   </script>
 </body>
