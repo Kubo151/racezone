@@ -392,37 +392,127 @@
   }
 
   /* ---------- COOKIE BANNER ---------- */
-  .cookie{
-    position:fixed;bottom:0;left:0;right:0;z-index:999;
-    background:#fff;border-top:1px solid var(--line);
-    padding:18px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px;
-    box-shadow:0 -8px 32px -10px rgba(20,22,28,.1);
-    transform:translateY(110%);transition:transform .4s cubic-bezier(.4,0,.2,1);
-    flex-wrap:wrap;
+  #cookieBanner{
+    display:none;
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120px);
+    width:calc(100% - 48px);max-width:680px;
+    background:#fff;border:1px solid var(--line);
+    border-radius:var(--r);padding:24px 28px;
+    box-shadow:0 30px 60px -15px rgba(0,0,0,.18);
+    z-index:9999;opacity:0;
+    transition:transform .5s cubic-bezier(.4,0,.2,1), opacity .5s ease;
   }
-  .cookie.show{transform:translateY(0)}
-  .cookie p{font-size:13.5px;color:var(--ink-soft);max-width:620px;line-height:1.6}
-  .cookie p a{color:var(--red);text-decoration:none;font-weight:600}
-  .cookie-btns{display:flex;gap:10px;flex-shrink:0}
-  .cookie-btns button{
-    font-family:var(--body);font-size:13px;font-weight:700;cursor:pointer;
-    padding:9px 20px;border-radius:999px;border:1.5px solid transparent;transition:all .2s;
+  #cookieBanner.visible{
+    transform:translateX(-50%) translateY(0);
+    opacity:1;
   }
-  .cookie-accept{background:var(--red);color:#fff;border-color:var(--red)}
-  .cookie-accept:hover{background:var(--red-d)}
-  .cookie-reject{background:#fff;color:var(--ink);border-color:var(--line)}
-  .cookie-reject:hover{border-color:var(--ink)}
-  @media(max-width:600px){.cookie{padding:16px 20px}.cookie p{font-size:13px}}
+  .cookie-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+  .cookie-icon{
+    flex-shrink:0;width:36px;height:36px;border-radius:10px;
+    background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--ink);
+  }
+  .cookie-header h4{font-family:var(--display);font-size:15px;font-weight:700;margin-bottom:4px}
+  .cookie-header p{font-size:13px;color:var(--muted);line-height:1.6}
+  .cookie-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .cookie-btn-accept{
+    font-family:var(--body);font-size:13.5px;font-weight:700;cursor:pointer;
+    padding:9px 20px;border-radius:999px;border:none;
+    background:var(--ink);color:#fff;transition:background .18s;
+  }
+  .cookie-btn-accept:hover{background:var(--ink-soft)}
+  .cookie-btn-reject{
+    font-family:var(--body);font-size:13.5px;font-weight:700;cursor:pointer;
+    padding:9px 20px;border-radius:999px;border:1.5px solid var(--line);
+    background:#fff;color:var(--ink);transition:border-color .18s;
+  }
+  .cookie-btn-reject:hover{border-color:var(--ink)}
+  .cookie-btn-settings{
+    font-family:var(--body);font-size:13px;font-weight:600;cursor:pointer;
+    border:none;background:none;color:var(--muted);margin-left:auto;
+    text-decoration:underline;transition:color .18s;padding:0;
+  }
+  .cookie-btn-settings:hover{color:var(--ink)}
+  #cookieDetails{display:none;margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+  .cookie-category{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .cookie-category:last-of-type{border-bottom:none}
+  .cookie-cat-info strong{display:block;font-size:13.5px;font-weight:700;color:var(--ink)}
+  .cookie-cat-info span{font-size:12.5px;color:var(--muted)}
+  .cookie-toggle{position:relative;display:inline-flex;align-items:center;cursor:pointer;flex-shrink:0}
+  .cookie-toggle input{opacity:0;width:0;height:0;position:absolute}
+  .cookie-toggle-slider{
+    width:40px;height:24px;background:var(--line);border-radius:999px;
+    transition:background .2s;position:relative;
+  }
+  .cookie-toggle-slider::after{
+    content:'';position:absolute;left:3px;top:3px;
+    width:18px;height:18px;border-radius:50%;background:#fff;
+    transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.2);
+  }
+  .cookie-toggle input:checked + .cookie-toggle-slider{background:var(--red)}
+  .cookie-toggle input:checked + .cookie-toggle-slider::after{transform:translateX(16px)}
+  .cookie-toggle input:disabled + .cookie-toggle-slider{opacity:.5;cursor:not-allowed}
+  .cookie-save-btn{
+    width:100%;margin-top:14px;
+    font-family:var(--body);font-size:14px;font-weight:700;cursor:pointer;
+    padding:12px;border-radius:999px;border:1.5px solid var(--line);
+    background:#fff;color:var(--ink);transition:all .18s;
+  }
+  .cookie-save-btn:hover{border-color:var(--ink);background:var(--soft)}
+  @media(max-width:600px){
+    #cookieBanner{
+      bottom:0;left:0;right:0;width:100%;max-width:100%;
+      transform:translateY(120px);
+      border-radius:var(--r) var(--r) 0 0;
+    }
+    #cookieBanner.visible{transform:translateY(0)}
+  }
 </style>
 </head>
 <body>
 
   <!-- COOKIE BANNER -->
-  <div class="cookie" id="cookieBanner" role="region" aria-label="Súhlas s cookies">
-    <p>Táto stránka používa nevyhnutné cookies pre fungovanie webu. Viac info v <a href="/cookies.html">Zásadách cookies</a> a <a href="/gdpr.html">Ochrane osobných údajov</a>.</p>
-    <div class="cookie-btns">
-      <button class="cookie-reject" id="cookieReject">Odmietnuť</button>
-      <button class="cookie-accept" id="cookieAccept">Prijať</button>
+  <div id="cookieBanner" role="dialog" aria-label="Súbory cookies">
+    <div class="cookie-header">
+      <span class="cookie-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a10 10 0 1 0 10 10c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4-5.55 5.39 5.39 0 0 1-3.14-5A8.84 8.84 0 0 0 12 2z"/>
+          <path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/><path d="M11 17v.01"/><path d="M7 14v.01"/>
+        </svg>
+      </span>
+      <div style="flex:1">
+        <h4>Tento web používa cookies</h4>
+        <p>Používame cookies na fungovanie webu a — ak to povolíš — na analýzu návštevnosti. Môžeš si vybrať, ktoré akceptuješ.</p>
+      </div>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-btn-accept" onclick="cookieAcceptAll()">Prijať všetko</button>
+      <button class="cookie-btn-reject" onclick="cookieRejectAll()">Odmietnuť</button>
+      <button class="cookie-btn-settings" id="cookieSettingsBtn" onclick="cookieToggleDetails()">Nastavenia</button>
+    </div>
+    <div id="cookieDetails">
+      <div class="cookie-category">
+        <label class="cookie-toggle"><input type="checkbox" checked disabled><span class="cookie-toggle-slider"></span></label>
+        <div class="cookie-cat-info">
+          <strong>Nevyhnutné cookies</strong>
+          <span>Zabezpečujú základné funkcie stránky. Nemožno ich vypnúť.</span>
+        </div>
+      </div>
+      <div class="cookie-category">
+        <label class="cookie-toggle"><input type="checkbox" id="cookieAnalytics"><span class="cookie-toggle-slider"></span></label>
+        <div class="cookie-cat-info">
+          <strong>Analytické cookies</strong>
+          <span>Pomáhajú nám pochopiť, ako návštevníci používajú stránku.</span>
+        </div>
+      </div>
+      <div class="cookie-category">
+        <label class="cookie-toggle"><input type="checkbox" id="cookieMarketing"><span class="cookie-toggle-slider"></span></label>
+        <div class="cookie-cat-info">
+          <strong>Marketingové cookies</strong>
+          <span>Slúžia na zobrazovanie relevantnej reklamy a meranie kampaní.</span>
+        </div>
+      </div>
+      <button class="cookie-save-btn" onclick="cookieSaveSettings()">Uložiť nastavenia</button>
     </div>
   </div>
 
@@ -835,17 +925,41 @@
 
     // --- COOKIE BANNER ---
     (function(){
+      const COOKIE_KEY = 'rz_cookie';
       const banner = document.getElementById('cookieBanner');
-      if (localStorage.getItem('rz_cookie')) return;
-      setTimeout(() => banner.classList.add('show'), 800);
-      document.getElementById('cookieAccept').addEventListener('click', () => {
-        localStorage.setItem('rz_cookie','accepted');
-        banner.classList.remove('show');
-      });
-      document.getElementById('cookieReject').addEventListener('click', () => {
-        localStorage.setItem('rz_cookie','rejected');
-        banner.classList.remove('show');
-      });
+
+      function showBanner() {
+        banner.style.display = 'block';
+        requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('visible')));
+      }
+      function hideBanner() {
+        banner.classList.remove('visible');
+        setTimeout(() => { banner.style.display = 'none'; }, 500);
+      }
+
+      if (!localStorage.getItem(COOKIE_KEY)) setTimeout(showBanner, 800);
+
+      window.cookieAcceptAll = function() {
+        localStorage.setItem(COOKIE_KEY, JSON.stringify({necessary:true,analytics:true,marketing:true}));
+        hideBanner();
+      };
+      window.cookieRejectAll = function() {
+        localStorage.setItem(COOKIE_KEY, JSON.stringify({necessary:true,analytics:false,marketing:false}));
+        hideBanner();
+      };
+      window.cookieToggleDetails = function() {
+        const d = document.getElementById('cookieDetails');
+        const btn = document.getElementById('cookieSettingsBtn');
+        const open = d.style.display === 'block';
+        d.style.display = open ? 'none' : 'block';
+        btn.textContent = open ? 'Nastavenia' : 'Skryť';
+      };
+      window.cookieSaveSettings = function() {
+        const analytics = document.getElementById('cookieAnalytics').checked;
+        const marketing = document.getElementById('cookieMarketing').checked;
+        localStorage.setItem(COOKIE_KEY, JSON.stringify({necessary:true,analytics,marketing}));
+        hideBanner();
+      };
     })();
 
     // --- CONTACT FORM ---
