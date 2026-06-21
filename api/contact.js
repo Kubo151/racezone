@@ -9,19 +9,49 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Chýbajú povinné polia' });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.CONTACT_EMAIL || 'nemcikjakub5@gmail.com';
+  const resendKey   = process.env.RESEND_API_KEY;
+  const toEmail     = process.env.CONTACT_EMAIL || 'nemcikjakub5@gmail.com';
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
-  if (!apiKey) {
+  if (!resendKey) {
     console.error('RESEND_API_KEY not set');
     return res.status(500).json({ error: 'Konfigurácia servera chýba' });
   }
 
-  try {
-    const response = await fetch('https://api.resend.com/emails', {
+  // Uloženie do Supabase + odoslanie emailu paralelne
+  const [, emailRes] = await Promise.all([
+    // Supabase — nekritické, len logujeme chyby
+    supabaseUrl && supabaseKey
+      ? fetch(`${supabaseUrl}/rest/v1/reservations`, {
+          method: 'POST',
+          headers: {
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal',
+          },
+          body: JSON.stringify({
+            name,
+            phone,
+            email,
+            package: pkg || null,
+            date: date || null,
+            date_end: date_end || null,
+            type: type || null,
+            time: time || null,
+            prep: prep === 'yes',
+            message: message || null,
+          }),
+        }).then(r => { if (!r.ok) r.text().then(t => console.error('Supabase error:', r.status, t)); })
+          .catch(e => console.error('Supabase fetch error:', e))
+      : Promise.resolve(),
+
+    // Resend email — kritické
+    fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
+        'Authorization': `Bearer ${resendKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -60,19 +90,16 @@ module.exports = async function handler(req, res) {
   </div>
 </div>`,
       }),
-    });
+    }),
+  ]);
 
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error('Resend error:', response.status, errText);
-      throw new Error(`Resend ${response.status}`);
-    }
-
-    return res.status(200).json({ ok: true });
-  } catch (err) {
-    console.error('Contact handler error:', err);
+  if (!emailRes.ok) {
+    const errText = await emailRes.text();
+    console.error('Resend error:', emailRes.status, errText);
     return res.status(500).json({ error: 'Odosielanie zlyhalo' });
   }
+
+  return res.status(200).json({ ok: true });
 };
 
 function h(str) {
