@@ -157,8 +157,7 @@
     transform-origin:center bottom;opacity:1;
     will-change:left,bottom,transform,opacity;
   }
-  /* drive animation turns on only after first paint (see script) */
-  html.go .buggy-driver{animation:drive 8.5s linear infinite}
+  /* buggy stays stationary — speed lines create motion illusion */
   .buggy-driver img{display:block;width:100%;filter:drop-shadow(0 10px 10px rgba(20,22,28,.22))}
   .buggy-bob{animation:bob .42s ease-in-out infinite alternate;transform-origin:center bottom}
   @keyframes bob{from{transform:translateY(0) rotate(-.6deg)}to{transform:translateY(-4px) rotate(.6deg)}}
@@ -383,6 +382,9 @@
   .gdpr-check input[type=checkbox]{flex-shrink:0;width:17px;height:17px;margin-top:2px;accent-color:var(--red);cursor:pointer}
   .gdpr-check a{color:var(--red);text-decoration:none}
   .form-submit{width:100%;justify-content:center;border-radius:14px;padding:15px}
+  .field-check{justify-content:center;padding-top:22px}
+  .field-check label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13.5px;color:var(--muted);font-weight:500;line-height:1.5}
+  .field-check input[type=checkbox]{flex-shrink:0;width:16px;height:16px;margin-top:2px;accent-color:var(--red);cursor:pointer}
   .form-msg{padding:14px 18px;border-radius:12px;font-size:14px;font-weight:600;margin-top:16px;display:none}
   .form-msg.ok{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;display:block}
   .form-msg.err{background:#fef2f2;color:#991b1b;border:1px solid #fecaca;display:block}
@@ -563,7 +565,7 @@
       <div class="hero-text reveal">
         <div class="badge"><span class="dot"></span> Voľné termíny na sezónu 2026</div>
         <h1>Nafukovacia<br><span class="em">pretekárska</span> trať pre deti</h1>
-        <p class="lead">Reálne elektrické buginy na bezpečnej nafukovacej trati. Prémiová atrakcia na detské oslavy, firemné dni a festivaly — postavíme ju kdekoľvek za 30 minút.</p>
+        <p class="lead">Elektrická bugina a štvorkolka na bezpečnej nafukovacej trati. Prémiová atrakcia na detské oslavy, firemné dni a festivaly — postavíme ju kdekoľvek za 30 minút.</p>
         <div class="hero-cta">
           <a href="#kontakt" class="btn btn-red">Rezervovať termín <span class="arr">→</span></a>
           <a href="#ako" class="btn btn-ghost">Ako to funguje</a>
@@ -600,7 +602,7 @@
   <section class="stats">
     <div class="wrap stats-grid">
       <div class="stat reveal"><div class="num" data-count="500">500<sup>m²</sup></div><div class="lbl">m² plocha trate</div></div>
-      <div class="stat reveal"><div class="num" data-count="4">4</div><div class="lbl">buginy súčasne</div></div>
+      <div class="stat reveal"><div class="num" data-count="2">2</div><div class="lbl">vozidlá naraz</div></div>
       <div class="stat reveal"><div class="num" data-count="30">30<sup>min</sup></div><div class="lbl">rýchla montáž</div></div>
       <div class="stat reveal"><div class="num" data-count="4.9">4,9</div><div class="lbl">priemerné hodnotenie</div></div>
     </div>
@@ -612,7 +614,7 @@
       <div class="reveal">
         <div class="sec-tag">Prečo RaceZone</div>
         <h2>Atrakcia, ktorú si<br>deti zapamätajú</h2>
-        <p class="sec-sub">Kompletná zostava — trať, buginy aj obsluha. Vy sa staráte len o hostí, o zvyšok sa postaráme my.</p>
+        <p class="sec-sub">Kompletná zostava — trať, vozidlá aj obsluha. Vy sa staráte len o hostí, o zvyšok sa postaráme my.</p>
       </div>
       <div class="feat-grid">
         <div class="feat reveal">
@@ -624,8 +626,8 @@
         <div class="feat reveal">
           <div class="n">02</div>
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="17" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M5 17h-1v-4l3-5h7l3 4h2a1 1 0 0 1 1 1v4h-1"/><path d="M9.5 17h5"/></svg></div>
-          <h3>Elektrické buginy</h3>
-          <p>Tiché akumulátorové buginy s regulovateľnou rýchlosťou. Bez výfukov a hluku — ideálne aj pre tých najmenších pretekárov.</p>
+          <h3>Elektrická bugina a štvorkolka</h3>
+          <p>Tichá elektrická bugina a elektroštvorkolka s regulovateľnou rýchlosťou. Bez výfukov a hluku — ideálne aj pre tých najmenších pretekárov.</p>
         </div>
         <div class="feat reveal">
           <div class="n">03</div>
@@ -650,7 +652,7 @@
           </div>
           <div class="step">
             <div class="sn">2</div>
-            <div><h4>Dovezieme a postavíme</h4><p>Prídeme vopred, nafúkneme trať, pripravíme buginy a všetko odskúšame. Vy len privítate hostí.</p></div>
+            <div><h4>Dovezieme a postavíme</h4><p>Prídeme vopred, nafúkneme trať, pripravíme vozidlá a všetko odskúšame. Vy len privítate hostí.</p></div>
           </div>
           <div class="step">
             <div class="sn">3</div>
@@ -661,7 +663,7 @@
       <div class="how-card reveal">
         <div class="flagbar"></div>
         <h3>Všetko v jednom balíku</h3>
-        <p>Žiadne starosti s logistikou. Postaráme sa o trať, buginy, bezpečnosť aj obsluhu počas celej akcie.</p>
+        <p>Žiadne starosti s logistikou. Postaráme sa o trať, vozidlá, bezpečnosť aj obsluhu počas celej akcie.</p>
         <div class="line"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span> Pokrytie: Východné a Stredné Slovensko</div>
         <div class="line"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span> Prilby a bezpečnostné vybavenie</div>
         <div class="line"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span> Vyškolená obsluha počas celej akcie</div>
@@ -693,7 +695,7 @@
             Koľko detí môže jazdiť súčasne?
             <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
           </button>
-          <div class="faq-body"><p>Na trati môžu jazdiť 4 jazdci naraz — každý vo svojej buginovej. Pri väčších skupinách fungujeme na systéme rotácie, takže sa počas akcie vystriedajú všetci.</p></div>
+          <div class="faq-body"><p>Na trati môžu jazdiť 2 jazdci naraz — jeden na elektrickej bugine, druhý na elektroštvorkolke. Pri väčších skupinách fungujeme na systéme rotácie, takže sa počas akcie vystriedajú všetci.</p></div>
         </div>
 
         <div class="faq-item">
@@ -725,7 +727,7 @@
             Čo všetko je zahrnuté v cene?
             <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
           </button>
-          <div class="faq-body"><p>V cene je doprava, montáž trate, elektrické buginy, vyškolená obsluha počas celej akcie, bezpečnostné vybavenie (prilby) a demontáž. Poistenie atrakcie je samozrejmosťou.</p></div>
+          <div class="faq-body"><p>V cene je montáž a demontáž trate, elektrická bugina a štvorkolka, vyškolená obsluha počas celej akcie, bezpečnostné vybavenie (prilby) a poistenie atrakcie. Doprava na miesto akcie sa účtuje osobitne podľa vzdialenosti.</p></div>
         </div>
 
         <div class="faq-item">
@@ -789,11 +791,17 @@
             <label for="f-email">E-mail</label>
             <input type="email" id="f-email" name="email" placeholder="jana@email.sk" required>
           </div>
+          <div class="field">
+            <label for="f-package">Záujem o</label>
+            <select id="f-package" name="package">
+              <option value="">Vyberte záujem...</option>
+              <option value="komplet">Kompletný balík — trať + štvorkolka + bugina</option>
+              <option value="quad">Trať + elektroštvorkolka</option>
+              <option value="buggy">Trať + elektrická bugina</option>
+              <option value="track">Iba trať (bez vozidiel)</option>
+            </select>
+          </div>
           <div class="form-row">
-            <div class="field">
-              <label for="f-date">Dátum akcie</label>
-              <input type="date" id="f-date" name="date">
-            </div>
             <div class="field">
               <label for="f-type">Typ akcie</label>
               <select id="f-type" name="type">
@@ -805,6 +813,22 @@
                 <option>Teambuilding</option>
                 <option>Iné</option>
               </select>
+            </div>
+            <div class="field">
+              <label for="f-date">Dátum akcie</label>
+              <input type="date" id="f-date" name="date">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="f-time">Čas začiatku akcie</label>
+              <input type="time" id="f-time" name="time">
+            </div>
+            <div class="field field-check">
+              <label>
+                <input type="checkbox" id="f-prep" name="prep" value="yes">
+                <span>Potrebujem prípravu / montáž deň vopred</span>
+              </label>
             </div>
           </div>
           <div class="field">
@@ -818,22 +842,6 @@
           <button type="submit" class="btn btn-red form-submit">Odoslať dopyt <span class="arr">→</span></button>
           <div class="form-msg" id="formMsg"></div>
         </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-sec">
-    <div class="wrap">
-      <div class="cta reveal">
-        <div class="deco"></div>
-        <div>
-          <h2>Rezervujte si termín<br>ešte dnes</h2>
-          <p>Voľné víkendy sa v sezóne rýchlo plnia. Ozvite sa a radi vám pripravíme ponuku na mieru.</p>
-        </div>
-        <div class="cta-r">
-          <a href="https://wa.me/421940984954" target="_blank" rel="noopener" class="btn btn-dark">Napísať na WhatsApp <span class="arr">→</span></a>
-        </div>
       </div>
     </div>
   </section>
