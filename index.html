@@ -264,11 +264,25 @@
   }
   .how-card .flagbar{height:14px;border-radius:4px;margin-bottom:24px;
     background-image:conic-gradient(#fff 0 25%,var(--red) 0 50%,#fff 0 75%,var(--red) 0);background-size:14px 14px}
-  .how-card h3{font-family:var(--display);font-size:24px;font-weight:700;line-height:1.15;margin-bottom:14px}
-  .how-card p{color:#b9bcc4;font-size:14.5px;line-height:1.7;margin-bottom:26px}
-  .how-card .line{display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid rgba(255,255,255,.1);font-size:14.5px;font-weight:600}
-  .how-card .line .ck{width:22px;height:22px;border-radius:50%;background:var(--red);display:grid;place-items:center;flex-shrink:0}
-  .how-card .line .ck svg{width:12px;height:12px;stroke:#fff}
+  .how-card .price-title{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px}
+  .price-pkg{padding:14px 0;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:10px}
+  .price-pkg:first-of-type{border-top:none;padding-top:0}
+  .pkg-badge{font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:99px;text-transform:uppercase;flex-shrink:0}
+  .pkg-badge.mini{background:rgba(255,255,255,.12);color:#fff}
+  .pkg-badge.std{background:var(--red);color:#fff}
+  .pkg-badge.pro{background:#f5c518;color:#15171c}
+  .pkg-info{flex:1;min-width:0}
+  .pkg-info .pkg-dur{font-size:12px;color:rgba(255,255,255,.45);font-weight:500}
+  .pkg-info .pkg-inc{font-size:11.5px;color:rgba(255,255,255,.5);line-height:1.5;margin-top:2px}
+  .pkg-price{font-family:var(--display);font-size:20px;font-weight:800;color:#fff;white-space:nowrap}
+  .price-divider{height:1px;background:rgba(255,255,255,.1);margin:16px 0}
+  .price-note{font-size:12px;color:rgba(255,255,255,.45);line-height:1.7}
+  .price-note strong{color:rgba(255,255,255,.75);font-weight:600}
+  .price-rides{margin-top:14px}
+  .price-rides .ride-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px}
+  .ride-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-top:1px solid rgba(255,255,255,.07);font-size:13px}
+  .ride-row span{color:rgba(255,255,255,.6)}
+  .ride-row strong{color:#fff;font-weight:700;font-family:var(--display)}
 
   /* ---------- CTA ---------- */
   .cta-sec{padding:24px 0 80px}
@@ -681,12 +695,42 @@
       </div>
       <div class="how-card reveal">
         <div class="flagbar"></div>
-        <h3>Všetko v jednom balíku</h3>
-        <p>Žiadne starosti s logistikou. Postaráme sa o trať, vozidlá, bezpečnosť aj obsluhu počas celej akcie.</p>
-        <div class="line"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span> Pokrytie: Východné a Stredné Slovensko</div>
-        <div class="line"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span> Prilby a bezpečnostné vybavenie</div>
-        <div class="line"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span> Vyškolená obsluha počas celej akcie</div>
-        <div class="line"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span> Poistenie atrakcie v cene</div>
+        <p class="price-title">Cenník</p>
+
+        <div class="price-pkg">
+          <span class="pkg-badge mini">Mini</span>
+          <div class="pkg-info">
+            <div class="pkg-dur">2 hodiny · trať + 3× autíčko + 1× inštruktor</div>
+          </div>
+          <span class="pkg-price">290 €</span>
+        </div>
+        <div class="price-pkg">
+          <span class="pkg-badge std">Standard</span>
+          <div class="pkg-info">
+            <div class="pkg-dur">4 hodiny · trať + 3× autíčko + turnaj</div>
+          </div>
+          <span class="pkg-price">550 €</span>
+        </div>
+        <div class="price-pkg">
+          <span class="pkg-badge pro">Pro</span>
+          <div class="pkg-info">
+            <div class="pkg-dur">6 hodín · kompletná zóna + moderovaný turnaj</div>
+          </div>
+          <span class="pkg-price">790 €</span>
+        </div>
+
+        <div class="price-divider"></div>
+        <div class="price-note">
+          <strong>Doprava:</strong> Košice zadarmo · mimo Košíc 0,50 €/km (tam aj späť)<br>
+          <strong>Extra hodina:</strong> +100 €/hod
+        </div>
+
+        <div class="price-rides">
+          <p class="ride-title">Jazdy na eventoch (platí účastník)</p>
+          <div class="ride-row"><span>1 jazda (5 min)</span><strong>5 €</strong></div>
+          <div class="ride-row"><span>Zvýhodnený lístok (2 jazdy)</span><strong>8 €</strong></div>
+          <div class="ride-row"><span>Rodinný balík (5 lístkov)</span><strong>18 €</strong></div>
+        </div>
       </div>
     </div>
   </section>
