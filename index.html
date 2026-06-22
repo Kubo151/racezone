@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css" integrity="sha384-RkASv+6KfBMW9eknReJIJ6b3UnjKOKC5bOUaNgIY778NFbQ8MtWq9Lr/khUgqtTt" crossorigin="anonymous">
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -393,8 +394,20 @@
   .check-item:not(:last-child){border-bottom:1px solid var(--line)}
   .check-item:hover{background:var(--soft)}
   .check-item input[type=checkbox]{flex-shrink:0;width:18px;height:18px;accent-color:var(--red);cursor:pointer}
-  .date-warn{display:none;font-size:12.5px;font-weight:700;color:var(--red);padding:4px 10px;border-radius:7px;background:rgba(232,20,27,.07);border:1px solid rgba(232,20,27,.2);margin-top:2px}
-  .date-warn.warn{display:block}
+  .flatpickr-calendar{font-family:var(--body);border-radius:14px;box-shadow:0 8px 32px rgba(21,23,28,.13);border:1.5px solid var(--line)}
+  .flatpickr-months{background:var(--ink);border-radius:12px 12px 0 0}
+  .flatpickr-months .flatpickr-month,.flatpickr-months .flatpickr-prev-month,.flatpickr-months .flatpickr-next-month{color:#fff;fill:#fff}
+  .flatpickr-months .flatpickr-prev-month:hover svg,.flatpickr-months .flatpickr-next-month:hover svg{fill:var(--red)}
+  .flatpickr-current-month .flatpickr-monthDropdown-months,.flatpickr-current-month input.cur-year{color:#fff;font-family:var(--display);font-weight:700}
+  .flatpickr-weekdays{background:var(--ink)}
+  span.flatpickr-weekday{background:var(--ink);color:rgba(255,255,255,.55);font-size:12px;font-weight:600}
+  .flatpickr-day{font-size:13px;font-weight:500;border-radius:8px}
+  .flatpickr-day:hover,.flatpickr-day.prevMonthDay:hover,.flatpickr-day.nextMonthDay:hover{background:var(--soft);border-color:var(--line)}
+  .flatpickr-day.today{border-color:var(--red)}
+  .flatpickr-day.today:hover{background:rgba(232,20,27,.07);border-color:var(--red)}
+  .flatpickr-day.selected,.flatpickr-day.selected:hover{background:var(--red);border-color:var(--red);color:#fff}
+  .flatpickr-day.disabled,.flatpickr-day.disabled:hover{background:#fef2f2;color:#e0a0a3;text-decoration:line-through;cursor:not-allowed}
+  .flatpickr-input{cursor:pointer}
   .opt-label{font-weight:500;color:var(--muted);font-size:12px;margin-left:3px}
   .form-msg{padding:14px 18px;border-radius:12px;font-size:14px;font-weight:600;margin-top:16px;display:none}
   .form-msg.ok{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;display:block}
@@ -574,7 +587,6 @@
   <header class="hero" id="trat">
     <div class="wrap hero-grid">
       <div class="hero-text reveal">
-        <div class="badge"><span class="dot"></span> Voľné termíny na sezónu 2026</div>
         <h1><span class="em">1.</span> Nafukovacia trať<br>na Slovensku!</h1>
         <p class="lead">Elektrické autíčka na bezpečnej nafukovacej trati. Prémiová atrakcia na detské oslavy, firemné dni a festivaly — postavíme ju kdekoľvek za 20 minút.</p>
         <div class="hero-cta">
@@ -821,13 +833,11 @@
           <div class="form-row">
             <div class="field">
               <label for="f-date">Dátum podujatia (od)</label>
-              <input type="date" id="f-date" name="date">
-              <span class="date-warn" id="dateMsgFrom"></span>
+              <input type="text" id="f-date" name="date" placeholder="Vyberte dátum..." readonly>
             </div>
             <div class="field">
               <label for="f-date-end">Dátum do <span class="opt-label">nepovinné</span></label>
-              <input type="date" id="f-date-end" name="date_end">
-              <span class="date-warn" id="dateMsgTo"></span>
+              <input type="text" id="f-date-end" name="date_end" placeholder="Vyberte dátum..." readonly>
             </div>
           </div>
           <div class="form-row">
@@ -919,6 +929,7 @@
     </nav>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js" integrity="sha384-5JqMv4L/Xa0hfvtF06qboNdhvuYXUku9ZrhZh3bSk8VXF0A/RuSLHpLsSV9Zqhl6" crossorigin="anonymous"></script>
   <script>
     // stagger siblings within groups
     document.querySelectorAll('.feat-grid, .stats-grid, .steps').forEach(grid=>{
@@ -979,46 +990,42 @@
     });
 
     // --- BLOKOVANÉ TERMÍNY ---
-    // Ručne doplniť keď príde rezervácia. Pre automatické blokovanie treba Cal.com alebo Supabase.
+    // Ručne doplniť keď príde rezervácia. Pre automatické blokovanie treba Supabase.
     const BLOCKED_DATES = [
-      { od: '2026-06-26', do: '2026-06-28', label: 'Žijem festival — termín je obsadený' }
+      { from: '2026-06-26', to: '2026-06-28' }
     ];
 
     (function(){
-      const fDate    = document.getElementById('f-date');
-      const fDateEnd = document.getElementById('f-date-end');
-      const msgFrom  = document.getElementById('dateMsgFrom');
-      const msgTo    = document.getElementById('dateMsgTo');
-      if (!fDate) return;
-
-      const todayISO = new Date().toISOString().split('T')[0];
-      fDate.min = todayISO;
-      fDateEnd.min = todayISO;
-
-      function rangeOverlaps(from, to) {
-        if (!from) return null;
-        const end = to || from;
-        return BLOCKED_DATES.find(b => from <= b.do && end >= b.od) || null;
-      }
-
-      function updateWarnings() {
-        const from = fDate.value;
-        const to   = fDateEnd.value;
-        if (from) fDateEnd.min = from;
-        const blocked = rangeOverlaps(from, to);
-        if (blocked) {
-          msgFrom.textContent = blocked.label;
-          msgFrom.classList.add('warn');
-        } else {
-          msgFrom.textContent = '';
-          msgFrom.classList.remove('warn');
+      const skLocale = {
+        firstDayOfWeek: 1,
+        weekdays: {
+          shorthand: ['Ne','Po','Ut','St','Št','Pi','So'],
+          longhand: ['Nedeľa','Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota']
+        },
+        months: {
+          shorthand: ['Jan','Feb','Mar','Apr','Máj','Jún','Júl','Aug','Sep','Okt','Nov','Dec'],
+          longhand: ['Január','Február','Marec','Apríl','Máj','Jún','Júl','August','September','Október','November','December']
         }
-        msgTo.textContent = '';
-        msgTo.classList.remove('warn');
-      }
+      };
 
-      fDate.addEventListener('change', updateWarnings);
-      fDateEnd.addEventListener('change', updateWarnings);
+      const shared = {
+        locale: skLocale,
+        dateFormat: 'Y-m-d',
+        altInput: true,
+        altFormat: 'j. F Y',
+        minDate: 'today',
+        disable: BLOCKED_DATES,
+        disableMobile: false
+      };
+
+      const pickerFrom = flatpickr('#f-date', {
+        ...shared,
+        onChange(sel) {
+          if (sel[0]) pickerTo.set('minDate', sel[0]);
+        }
+      });
+
+      const pickerTo = flatpickr('#f-date-end', { ...shared });
     })();
 
     // --- FAQ ACCORDION ---
