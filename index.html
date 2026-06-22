@@ -388,6 +388,11 @@
   .field-check{margin-bottom:16px}
   .field-check label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13.5px;color:var(--muted);font-weight:500;line-height:1.5}
   .field-check input[type=checkbox]{flex-shrink:0;width:20px;height:20px;accent-color:var(--red);cursor:pointer}
+  .check-group{display:flex;flex-direction:column;gap:2px;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
+  .check-item{display:flex;align-items:center;gap:12px;padding:11px 14px;cursor:pointer;font-size:14px;font-weight:500;color:var(--ink-soft);transition:background .15s}
+  .check-item:not(:last-child){border-bottom:1px solid var(--line)}
+  .check-item:hover{background:var(--soft)}
+  .check-item input[type=checkbox]{flex-shrink:0;width:18px;height:18px;accent-color:var(--red);cursor:pointer}
   .date-warn{display:none;font-size:12.5px;font-weight:700;color:var(--red);padding:4px 10px;border-radius:7px;background:rgba(232,20,27,.07);border:1px solid rgba(232,20,27,.2);margin-top:2px}
   .date-warn.warn{display:block}
   .opt-label{font-weight:500;color:var(--muted);font-size:12px;margin-left:3px}
@@ -798,20 +803,25 @@
             <input type="email" id="f-email" name="email" placeholder="jana@email.sk" required>
           </div>
           <div class="field">
-            <label for="f-package">Záujem o</label>
-            <select id="f-package" name="package">
-              <option value="">Vyberte záujem...</option>
-              <option value="komplet">Kompletný balík — trať + štvorkolka + bugina</option>
-              <option value="quad">Trať + elektroštvorkolka</option>
-              <option value="buggy">Trať + elektrická bugina</option>
-              <option value="track">Iba trať (bez vozidiel)</option>
-              <option value="quad-only">Iba elektroštvorkolka (bez trate)</option>
-              <option value="buggy-only">Iba elektrická bugina (bez trate)</option>
-            </select>
+            <label>Záujem o</label>
+            <div class="check-group">
+              <label class="check-item">
+                <input type="checkbox" id="f-track" name="item_track" value="yes">
+                <span>Nafukovacia trať</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="f-buggy" name="item_buggy" value="yes">
+                <span>Elektrická bugina</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="f-quad" name="item_quad" value="yes">
+                <span>Elektroštvorkolka</span>
+              </label>
+            </div>
           </div>
           <div class="form-row">
             <div class="field">
-              <label for="f-date">Dátum akcie (od)</label>
+              <label for="f-date">Dátum podujatia (od)</label>
               <input type="date" id="f-date" name="date">
               <span class="date-warn" id="dateMsgFrom"></span>
             </div>
@@ -823,19 +833,19 @@
           </div>
           <div class="form-row">
             <div class="field">
-              <label for="f-type">Typ akcie</label>
+              <label for="f-type">Typ podujatia</label>
               <select id="f-type" name="type">
                 <option value="">Vyberte typ...</option>
                 <option>Detská oslava</option>
                 <option>Firemný deň</option>
                 <option>Festival / podujatie</option>
-                <option>Školská akcia</option>
+                <option>Školské podujatie</option>
                 <option>Teambuilding</option>
                 <option>Iné</option>
               </select>
             </div>
             <div class="field">
-              <label for="f-time">Čas začiatku akcie</label>
+              <label for="f-time">Čas začiatku podujatia</label>
               <input type="time" id="f-time" name="time">
             </div>
           </div>
@@ -1087,6 +1097,12 @@
       btn.disabled = true;
       btn.textContent = 'Odosiela sa...';
       const data = Object.fromEntries(new FormData(this));
+      const items = [];
+      if (data.item_track === 'yes') items.push('Nafukovacia trať');
+      if (data.item_buggy === 'yes') items.push('Elektrická bugina');
+      if (data.item_quad === 'yes') items.push('Elektroštvorkolka');
+      data.package = items.join(', ');
+      delete data.item_track; delete data.item_buggy; delete data.item_quad;
       try {
         const res = await fetch('/api/contact', {
           method: 'POST',
