@@ -199,7 +199,7 @@
 
   /* ---------- STATS ---------- */
   .stats{padding:64px 0}
-  .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .stat{
     background:#fff;border:1px solid var(--line);border-radius:var(--r);
     padding:30px 26px;transition:transform .25s ease, box-shadow .25s ease;
@@ -324,14 +324,14 @@
     .stage{order:-1;aspect-ratio:1.3/1}
     .how-grid{grid-template-columns:1fr;gap:34px}
     .how-card{position:relative;top:0}
-    .stats-grid{grid-template-columns:repeat(2,1fr)}
+    .stats-grid{grid-template-columns:repeat(3,1fr)}
     .feat-grid{grid-template-columns:1fr}
     .nav-links{display:none}
     .cta{flex-direction:column;align-items:flex-start;padding:44px 32px}
   }
   @media(max-width:560px){
     .wrap{padding:0 22px}
-    .stats-grid{grid-template-columns:1fr 1fr;gap:14px}
+    .stats-grid{grid-template-columns:1fr 1fr 1fr;gap:10px}
     .stat{padding:22px 20px}
     .stat .num{font-size:38px}
     .nav-in .btn-red{display:none}
@@ -382,7 +382,7 @@
   .contact-detail strong{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px}
   .contact-detail span{font-size:14px;color:var(--muted)}
   .form-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:36px;box-shadow:var(--shadow-sm)}
-  .form-title{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:22px}
+  .form-title{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:22px}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
   .field:last-of-type{margin-bottom:0}
@@ -610,9 +610,6 @@
           <a href="#kontakt" class="btn btn-red">Rezervovať termín <span class="arr">→</span></a>
           <a href="#ako" class="btn btn-ghost">Ako to funguje</a>
         </div>
-        <div class="trust">
-          <span>200+ akcií ročne</span>
-        </div>
       </div>
 
       <!-- TRACK STAGE with driving buggy -->
@@ -640,6 +637,7 @@
     <div class="wrap stats-grid">
       <div class="stat reveal"><div class="num" data-count="200">200<sup>m²</sup></div><div class="lbl">m² plocha trate</div></div>
       <div class="stat reveal"><div class="num" data-count="20">20<sup>min</sup></div><div class="lbl">rýchla montáž</div></div>
+      <div class="stat reveal"><div class="num" data-count="2">2<sup>ks</sup></div><div class="lbl">elektrické autíčka</div></div>
     </div>
   </section>
 
@@ -748,8 +746,8 @@
         <div class="price-rides">
           <p class="ride-title">Jazdy na eventoch keď platí účastník</p>
           <div class="ride-row"><span>1 jazda (5 min)</span><strong>5 €</strong></div>
-          <div class="ride-row"><span>Zvýhodnený lístok (2 jazdy)</span><strong>8 €</strong></div>
-          <div class="ride-row"><span>Rodinný balík (5 lístkov)</span><strong>18 €</strong></div>
+          <div class="ride-row"><span>Zvýhodnený lístok (2 jazdy)</span><strong>9 €</strong></div>
+          <div class="ride-row"><span>Rodinný balík (4 jazdy)</span><strong>16 €</strong></div>
         </div>
         <div class="price-divider"></div>
         <p class="price-note" style="color:rgba(255,255,255,.5);font-style:italic">Ak ste si v cenníku nenašli ponuku pre vás, napíšte nám a radi vám vypracujeme cenovú ponuku priamo na mieru.</p>
@@ -825,7 +823,7 @@
 
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">
-            Kam všade dovezete trať?
+            Kam všade doveziete trať?
             <span class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
           </button>
           <div class="faq-body"><p>Pôsobíme na Východnom a Strednom Slovensku. Doprava na miesto akcie je spoplatnená samostatne — pri rezervácii ju nacenníme podľa vzdialenosti. Napíšte nám miesto konania a my vám potvrdíme dostupnosť aj cenu dopravy.</p></div>
