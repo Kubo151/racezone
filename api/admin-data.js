@@ -1,10 +1,28 @@
+const crypto = require('crypto');
+
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const ALLOWED_ORIGINS = ['https://www.bamper.sk', 'https://bamper.sk'];
+
 function isAuthed(req) {
   const token = (req.headers.authorization || '').replace('Bearer ', '');
-  return token === ADMIN_PASSWORD;
+  if (!ADMIN_PASSWORD || !token) return false;
+  try {
+    return crypto.timingSafeEqual(Buffer.from(token), Buffer.from(ADMIN_PASSWORD));
+  } catch (_) { return false; }
+}
+
+function setCors(req, res) {
+  const origin = req.headers.origin || '';
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization,Content-Type');
 }
 
 async function sb(path, method = 'GET', body = null) {
@@ -24,11 +42,14 @@ async function sb(path, method = 'GET', body = null) {
 }
 
 module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  setCors(req, res);
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (!isAuthed(req)) return res.status(401).json({ error: 'Unauthorized' });
 
   const { type, id } = req.query;
+
+  // UUID validácia — bráni PostgREST injection cez id parameter
+  if (id && !UUID_RE.test(id)) return res.status(400).json({ error: 'Neplatné id' });
 
   try {
     if (req.method === 'GET') {
